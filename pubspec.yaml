@@ -10,6 +10,9 @@ dependencies:
   get: 4.3.8
   flutter: 
     sdk: flutter
+  page_transition: ^1.1.6
+  animations: ^2.0.2
+  intl: ^0.17.0
 
 dev_dependencies: 
   flutter_lints: ^1.0.0
@@ -18,4 +21,12 @@ dev_dependencies:
 
 flutter: 
   uses-material-design: true
+  assets:
+    - assets/images/
+  fonts:
+    - family: ZenKurenaido
+      fonts:
+        - asset: assets/fonts/ZenKurenaido-Regular.ttf
+          weight: 400
+
 

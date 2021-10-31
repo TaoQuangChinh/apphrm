@@ -1,9 +1,32 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class ScreenSaverController extends GetxController {
-  //TODO: Implement ScreenSaverController
+  PageController controllerPage = PageController(initialPage: 1, viewportFraction: 1.0);
 
-  final count = 0.obs;
+  late RxString changeText = "".obs;
+
+  List<Color> signInGradients = [
+    Color(0xFF0EDED2),
+    Color(0xFF03A0FE),
+  ];
+
+  List<Color> signUpGradients = [
+    Color(0xfff5e02a),
+    Color(0xFFFF9945),
+  ];
+
+  List<Color> orangeGradients = [
+    Color(0xFFFF9844),
+    Color(0xFFFE8853),
+    Color(0xFFFD7267),];
+
+  List<Color> aquaGradients = [
+    Color(0xFF5AEAF1),
+    Color(0xFF8EF7DA),
+  ];
+
+
   @override
   void onInit() {
     super.onInit();
@@ -16,5 +39,4 @@ class ScreenSaverController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
 }
