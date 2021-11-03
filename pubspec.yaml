@@ -8,9 +8,11 @@ environment:
 dependencies: 
   cupertino_icons: ^1.0.2
   get: 4.3.8
-  flutter: 
+  flutter:
     sdk: flutter
-  page_transition: ^1.1.6
+  flutter_localizations:
+    sdk: flutter
+  page_transition: ^2.0.4
   animations: ^2.0.2
   intl: ^0.17.0
 

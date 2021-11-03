@@ -1,3 +1,4 @@
+import 'package:apphrm/app/components/check_size.dart';
 import 'package:apphrm/app/components/colors.dart';
 import 'package:apphrm/app/components/elevation_button.dart';
 import 'package:apphrm/app/components/size_screen_phone.dart';
@@ -5,6 +6,8 @@ import 'package:apphrm/app/modules/login/component/input_text.dart';
 import 'package:apphrm/app/modules/login/component/text_hearder.dart';
 import 'package:apphrm/app/modules/login/component/vertical_text.dart';
 import 'package:apphrm/app/modules/screen_saver/controllers/screen_saver_controller.dart';
+import 'package:apphrm/app/modules/signup/component/change_to_language/text_header_vn.dart';
+import 'package:apphrm/app/modules/signup/component/change_to_language/text_vertical_vn.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -34,15 +37,23 @@ class SignupView extends GetView<SignupController> {
                   key: controller.formKeySignup,
                   child: Column(
                     children: [
+                      screenSaverController.title.value == "Tiếng Việt" ?
                       Row(
                         children: [
-                          VerticalText('SIGN UP'),
-                          TextHeader('Register to experience the benefits of the application'),
+                          VerticalTextSingupVN('sign_up'.tr),
+                          TextHeaderSingupVN('register_to'.tr),
+                        ],
+                      )
+                      :
+                      Row(
+                        children: [
+                          VerticalText('sign_up'.tr),
+                          TextHeader('register_to'.tr),
                         ],
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                            top: SizePhone(context).height/17,
+                            top: checkSize() ? SizePhone(context).height/300 : SizePhone(context).height/17,
                             left: SizePhone(context).width/8,
                             right: SizePhone(context).width/15),
                         child: Column(
@@ -56,8 +67,11 @@ class SignupView extends GetView<SignupController> {
                               controller: controller.hontenController,
                               decoration: buildInputDecotation(
                                   context,
-                                  'enter the full name',
-                                  Icon(Icons.account_circle_rounded,color: Colors.white70, size: SizePhone(context).width/13)),
+                                  'enter_fullname'.tr,
+                                  Icon(Icons.account_circle_rounded,color: Colors.white70, size: SizePhone(context).width/13),
+                                kColorWhite,
+                                Colors.white70
+                              ),
                               onSaved: (value){
                                 controller.name = value!;
                               },
@@ -77,7 +91,10 @@ class SignupView extends GetView<SignupController> {
                               decoration: buildInputDecotation(
                                   context,
                                   'dd/mm/yyyy',
-                                  Icon(Icons.date_range,color: Colors.white70, size: SizePhone(context).width/13)),
+                                  Icon(Icons.date_range,color: Colors.white70, size: SizePhone(context).width/13),
+                                  kColorWhite,
+                                  Colors.white70
+                              ),
                               onTap: (){
                                 controller.selelectDate(context, controller.namSinhController);
                               },
@@ -98,8 +115,11 @@ class SignupView extends GetView<SignupController> {
                               controller: controller.soDienThoaiController,
                               decoration: buildInputDecotation(
                                   context,
-                                  'enter phone number',
-                                  Icon(Icons.smartphone,color: Colors.white70, size: SizePhone(context).width/13)),
+                                  'enter_phone'.tr,
+                                  Icon(Icons.smartphone,color: Colors.white70, size: SizePhone(context).width/13),
+                                  kColorWhite,
+                                  Colors.white70
+                              ),
                               onSaved: (value){
                                 controller.phone = value!;
                               },
@@ -118,8 +138,11 @@ class SignupView extends GetView<SignupController> {
                               controller: controller.emailController,
                               decoration: buildInputDecotation(
                                   context,
-                                  'enter the email',
-                                  Icon(Icons.email_outlined,color: Colors.white70, size: SizePhone(context).width/13)),
+                                  'enter_email'.tr,
+                                  Icon(Icons.email_outlined,color: Colors.white70, size: SizePhone(context).width/13),
+                                kColorWhite,
+                                Colors.white70
+                              ),
                               keyboardType: TextInputType.emailAddress,
                               onSaved: (value){
                                 controller.email = value!;
@@ -136,9 +159,9 @@ class SignupView extends GetView<SignupController> {
                                 ),
                                 child: Row(
                                   children: [
-                                    radioButton(context, 0, controller.group, "Male"),
-                                    radioButton(context, 1, controller.group, "Famale"),
-                                    radioButton(context, 2, controller.group, "Is different"),
+                                    radioButton(context, 0, 0, controller.group, "male".tr),
+                                    radioButton(context, 1, 1, controller.group, "famale".tr),
+                                    radioButton(context, 2, 2, controller.group, "is_different".tr),
                                   ],
                                 )
                             ),),
@@ -152,12 +175,13 @@ class SignupView extends GetView<SignupController> {
                               alignment: Alignment.centerRight,
                               child: ElevationButton(
                                   sizeWidth: SizePhone(context).width/3,
-                                  title: "SIGN UP",
+                                  title: "sign_up".tr,
                                   onPress: (){
                                     controller.checkSignup();
                                     controller.textRadio.value == "" ? controller.validatorGender.value = false : controller.validatorGender.value = true;
-                                  },
-                                  checkVisibility: true,
+                                    print(controller.textRadio.value);
+                                    },
+                                  checkVisibility: checkLanguage() == "日本" ? false : true,
                                   widgets: Icon(Icons.arrow_forward, color: kColorOrangeLight,size: SizePhone(context).height/33),
                                   colors: kColorWhite,
                                   colors2: kColorOrangeLight)
@@ -177,25 +201,31 @@ class SignupView extends GetView<SignupController> {
     return Colors.white70;
   }
 
-  Widget radioButton(BuildContext context, int index, RxInt group, String title){
-    return Row(
-      children: [
-        Obx(()=> Radio(
-            fillColor: MaterialStateProperty.resolveWith(getColor),
-            activeColor: kColorWhite,
-            value: index,
-            groupValue: group.value,
-            onChanged: (value){
-              group.value = int.parse(value.toString());
-              controller.textRadio.value = value.toString();
-            })),
-        Text(title, style: TextStyle(
-          color: kColorWhite,
-          fontFamily: 'ZenKurenaido',
-          fontWeight: FontWeight.w600,
-          fontSize: SizePhone(context).width/23
-        ),)
-      ],
+  Widget radioButton(BuildContext context, int index, int intGroup, RxInt group, String title){
+    return GestureDetector(
+      onTap: (){
+        group.value = intGroup;
+        controller.textRadio.value = group.value.toString();
+      },
+      child: Row(
+        children: [
+          Obx(()=> Radio(
+              fillColor: MaterialStateProperty.resolveWith(getColor),
+              activeColor: kColorWhite,
+              value: index,
+              groupValue: group.value,
+              onChanged: (value){
+                group.value = int.parse(value.toString());
+                controller.textRadio.value = value.toString();
+              })),
+          Text(title, style: TextStyle(
+              color: kColorWhite,
+              fontFamily: checkFont(),
+              fontWeight: FontWeight.w600,
+              fontSize: SizePhone(context).width/23
+          ),)
+        ],
+      )
     );
   }
 }

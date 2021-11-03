@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 
 class ScreenSaverController extends GetxController {
   PageController controllerPage = PageController(initialPage: 1, viewportFraction: 1.0);
+  RxString title = "English".obs;
+  late RxBool onpage = true.obs;
 
   late RxString changeText = "".obs;
 
@@ -12,8 +14,8 @@ class ScreenSaverController extends GetxController {
   ];
 
   List<Color> signUpGradients = [
-    Color(0xfff5e02a),
     Color(0xFFFF9945),
+    Color(0xFFFFFFC107),
   ];
 
   List<Color> orangeGradients = [
@@ -23,7 +25,7 @@ class ScreenSaverController extends GetxController {
 
   List<Color> aquaGradients = [
     Color(0xFF5AEAF1),
-    Color(0xFF8EF7DA),
+    Color(0xFFFF80CBC4),
   ];
 
 

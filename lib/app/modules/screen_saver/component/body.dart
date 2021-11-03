@@ -6,6 +6,9 @@ import 'package:get/get.dart';
 
 class BodySaver extends StatelessWidget {
   PageController controllerPage;
+
+  var screenSaverController = Get.put(ScreenSaverController());
+
   BodySaver(this.controllerPage,{Key? key}) : super(key: key);
 
   @override
@@ -19,7 +22,7 @@ class BodySaver extends StatelessWidget {
             child: Column(
               children: [
                 RoundedRecButton(
-                    "SIGN IN",
+                    "sign_in".tr,
                     controller.signInGradients,
                     30,
                         (){
@@ -31,7 +34,7 @@ class BodySaver extends StatelessWidget {
                 ),
                 SizedBox(height: SizePhone(context).height/200),
                 RoundedRecButton(
-                    "SIGN UP",
+                    "sign_up".tr,
                     controller.signUpGradients,
                     30,
                         (){
@@ -41,9 +44,108 @@ class BodySaver extends StatelessWidget {
                           curve: Curves.bounceOut);
                     }
                 ),
+                SizedBox(height: SizePhone(context).height/10),
+                PopupMenuButton(
+                  onSelected: (value){
+                    screenSaverController.title.value = value.toString();
+                    if(value.toString() == "Tiếng Việt"){
+                      var locale = Locale('vi','VN');
+                      Get.updateLocale(locale);
+                    }else if(value.toString() == "English"){
+                      var locale = Locale('en','US');
+                      Get.updateLocale(locale);
+                    }else if(value.toString() == "日本"){
+                      var locale = Locale('ja','JP');
+                      Get.updateLocale(locale);
+                    }
+                  },
+                  itemBuilder: (BuildContext context) =>[
+                    PopupMenuItem(
+                        value: "Tiếng Việt",
+                        child: Row(
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.only(right: 10),
+                                child: Text("🇻🇳",style: TextStyle(
+                                  fontSize: SizePhone(context).height/30
+                                ),)
+                            ),
+                            Text("Tiếng Việt")
+                          ],
+                        )),
+                    PopupMenuItem(
+                        value: "English",
+                        child: Row(
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.only(right: 10),
+                                child: Text("🇺🇸",style: TextStyle(
+                                    fontSize: SizePhone(context).height/30
+                                ))
+                            ),
+                            Text("English")
+                          ],
+                        )),
+                    PopupMenuItem(
+                        value: "日本",
+                        child: Row(
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.only(right: 10),
+                                child: Text("🇯🇵",style: TextStyle(
+                                    fontSize: SizePhone(context).height/30
+                                ))
+                            ),
+                            Text("日本")
+                          ],
+                        )),
+                  ],
+                  child: Obx(() => widgets(context)),
+                ),
               ],
             ),
           );
         });
+  }
+  Widget widgets(BuildContext context){
+    if(screenSaverController.title.value == "Tiếng Việt"){
+      return Row(
+        children: [
+          Padding(
+              padding: EdgeInsets.only(right: 10),
+              child: Text("🇻🇳",style: TextStyle(
+                  fontSize: SizePhone(context).height/30
+              ))
+          ),
+          Text("Tiếng Việt",style: TextStyle(
+              fontSize: SizePhone(context).height/40
+          ))
+        ],
+      );
+    }else if(screenSaverController.title.value == "English"){
+      return Row(
+        children: [
+          Padding(
+              padding: EdgeInsets.only(right: 10),
+              child: Text("🇺🇸",style: TextStyle(
+                  fontSize: SizePhone(context).height/30
+              ))
+          ),
+          Text("English")
+        ],
+      );
+    }else{
+      return  Row(
+        children: [
+          Padding(
+              padding: EdgeInsets.only(right: 10),
+              child: Text("🇯🇵",style: TextStyle(
+                  fontSize: SizePhone(context).height/30
+              ))
+          ),
+          Text("日本")
+        ],
+      );
+    }
   }
 }

@@ -3,15 +3,17 @@ import 'package:apphrm/app/components/size_screen_phone.dart';
 import 'package:apphrm/app/modules/screen_saver/controllers/screen_saver_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 
 class Background extends StatelessWidget {
-  const Background({Key? key}) : super(key: key);
+
+  Background({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: kColorWhite,
+      backgroundColor: kColorWhite01,
       body: Column(
         children: [
           Stack(
@@ -20,7 +22,7 @@ class Background extends StatelessWidget {
               Positioned(
                   top: SizePhone(context).height/9,
                   left: SizePhone(context).width/4,
-                  child: Image.asset("assets/images/logo.png",height: (SizePhone(context).height/2.5)/1.4,),
+                  child: Image.asset("assets/images/img_logo.png",height: (SizePhone(context).height/2.5)/1.4,),
               ),
               WavyHeader(),
             ],
@@ -36,8 +38,8 @@ class Background extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             children: [
               WavyFooter(),
-              CirclePink(),
-              CircleYellow(),
+              // CirclePink(),
+              // CircleYellow(),
             ],
           )
         ],
@@ -88,37 +90,37 @@ class WavyFooter extends GetView<ScreenSaverController> {
   }
 }
 
-class CirclePink extends StatelessWidget {
-  const CirclePink({Key? key}) : super(key: key);
+// class CirclePink extends StatelessWidget {
+//   const CirclePink({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Transform.translate(
+//         offset: Offset(-70.0, 90.0),
+//         child: Material(
+//           color: kColorPink,
+//           child: Padding(padding: EdgeInsets.all(120),),
+//           shape: CircleBorder(side: BorderSide(color: kColorWhite, width: 15.0)),
+//       ),
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return Transform.translate(
-        offset: Offset(-70.0, 90.0),
-        child: Material(
-          color: kColorPink,
-          child: Padding(padding: EdgeInsets.all(120),),
-          shape: CircleBorder(side: BorderSide(color: kColorWhite, width: 15.0)),
-      ),
-    );
-  }
-}
-
-class CircleYellow extends StatelessWidget {
-  const CircleYellow({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Transform.translate(
-        offset: Offset(0.0, 210.0),
-        child: Material(
-          color: kColorYellow,
-          child: Padding(padding: EdgeInsets.all(140),),
-          shape: CircleBorder(side: BorderSide(color: kColorWhite,width: 15.0)),
-        ),
-    );
-  }
-}
+// class CircleYellow extends StatelessWidget {
+//   const CircleYellow({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Transform.translate(
+//         offset: Offset(0.0, 210.0),
+//         child: Material(
+//           color: kColorYellow,
+//           child: Padding(padding: EdgeInsets.all(140),),
+//           shape: CircleBorder(side: BorderSide(color: kColorWhite,width: 15.0)),
+//         ),
+//     );
+//   }
+// }
 
 
 
@@ -156,10 +158,11 @@ class FooterWaveClipper extends CustomClipper<Path>{
     path.moveTo(size.width, 0.0);
     path.lineTo(size.width, size.height);
     path.lineTo(0.0, size.height);
-    path.lineTo(0.0, size.height - 60);
+    path.lineTo(0.0, size.height - 8);
     var secondControlPoint = Offset(size.width -(size.width/6), size.height);
     var secondEndPoint = Offset(size.width, 0.0);
     path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy, secondEndPoint.dx, secondEndPoint.dy);
+
     return path;
   }
 

@@ -5,27 +5,27 @@ import 'package:apphrm/app/modules/screen_saver/controllers/screen_saver_control
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class VerticalText extends StatelessWidget {
+class VerticalTextSingupVN extends StatelessWidget {
   String title1;
 
   var screenSaverController = Get.put(ScreenSaverController());
 
-  VerticalText(this.title1,{Key? key}) : super(key: key);
+  VerticalTextSingupVN(this.title1,{Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.only(
-            top: SizePhone(context).height/220,
-            left: SizePhone(context).width/50),
+            top: SizePhone(context).height/330,
+            left: SizePhone(context).width/20),
         child: RotatedBox(
           quarterTurns: -1,
           child: Text(title1,
             style: TextStyle(
-              color: kColorWhite,
-              fontSize: checkSizeTextVerticalJP(context),
-              fontWeight: FontWeight.w900,
-              fontFamily: checkFont()
+                color: kColorWhite,
+                fontSize: screenSaverController.title.value == "Tiếng Việt" ? SizePhone(context).height/15 : SizePhone(context).height/10,
+                fontWeight: FontWeight.w900,
+                fontFamily: checkFont()
             ),
           ),
         )

@@ -17,6 +17,14 @@ class ScreenSaverView extends GetView<ScreenSaverController> {
       backgroundColor: kColorWhite,
       body: Container(
         child: PageView(
+          onPageChanged: (value){
+            //controller.onpage.value = value;
+            if(value == 2){
+              controller.onpage.value = true;
+            }else if(value == 0){
+              controller.onpage.value = false;
+            }
+          },
           controller: controller.controllerPage,
           physics: new AlwaysScrollableScrollPhysics(),
           children: [

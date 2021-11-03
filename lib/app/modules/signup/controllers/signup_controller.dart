@@ -24,7 +24,7 @@ class SignupController extends GetxController {
 
   List<Color> signUpGradients = [
     Color(0xFFFF9945),
-    Color(0xfff5e02a),
+    Color(0xFFFFFFC107),
   ];
 
   @override
@@ -51,7 +51,7 @@ class SignupController extends GetxController {
 
   String? validatorName(String value){
     if(value.isEmpty){
-      return "Please enter the full name*";
+      return "please_enter_full_name".tr;
     }else{
       return null;
     }
@@ -59,7 +59,7 @@ class SignupController extends GetxController {
 
   String? validatorDate(String value){
     if(value.isEmpty){
-      return "Please choose a date*";
+      return "please_enter_choose_date".tr;
     }else{
       return null;
     }
@@ -67,9 +67,9 @@ class SignupController extends GetxController {
 
   String? validatorPhone(String value){
     if(value.isEmpty){
-      return "Please enter the phone number*";
+      return "please_enter_phone".tr;
     }else if(value.length < 10 || value.length > 10){
-      return "The phone number is incorrect*";
+      return "phone_number_incorrect".tr;
     }else{
       return null;
     }
@@ -77,9 +77,9 @@ class SignupController extends GetxController {
 
   String? validatorEmail(String value){
     if(value.isEmpty){
-      return "Please enter the email*";
-    }else if(!emailValid.hasMatch(value)){
-      return "Email is not correct*";
+      return "please_enter_email".tr;
+    }else if(!value.isEmail){
+      return "please_email_correct".tr;
     }else{
       return null;
     }
@@ -99,10 +99,19 @@ class SignupController extends GetxController {
         context: context,
         initialDate: selcted,
         firstDate: DateTime(2000),
-        lastDate: DateTime(2030));
+        lastDate: DateTime(2030),
+        cancelText: 'cancle'.tr,
+        confirmText: 'confirm'.tr,
+        helpText:'select_date'.tr,
+        locale: changeDate(),
+    );
     if(picker != null && picker != selcted){
       selcted = picker;
       ctrl.text = format.format(selcted);
     }
+  }
+
+  changeDate(){
+    update();
   }
 }

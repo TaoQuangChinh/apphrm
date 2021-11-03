@@ -1,6 +1,7 @@
 import 'package:apphrm/app/components/size_screen_phone.dart';
 import 'package:flutter/material.dart';
 
+import 'check_size.dart';
 import 'colors.dart';
 
 class ElevationButton extends StatelessWidget {
@@ -38,8 +39,8 @@ class ElevationButton extends StatelessWidget {
                 children: [
                   Text(title, style: TextStyle(
                       color: colors2,
-                      fontSize: SizePhone(context).height/33,
-                      fontFamily: 'ZenKurenaido',
+                      fontSize: checkSizeFont(context),
+                      fontFamily: checkFont(),
                       fontWeight: FontWeight.w900
                   ),),
                   Visibility(
